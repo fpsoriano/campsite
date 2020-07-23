@@ -10,7 +10,7 @@
 		{
 			"name": "POST reserve campsite",
 			"request": {
-				"url": "http://localhost:8081/reservation",
+				"url": "http://localhost:8080/reservation",
 				"method": "POST",
 				"header": [
 					{
@@ -31,12 +31,12 @@
 			"name": "GET available dates to reserve",
 			"request": {
 				"url": {
-					"raw": "http://localhost:8081/reservation/available?initialDate=2020-08-01&finalDate=2020-08-26",
+					"raw": "http://localhost:8080/reservation/available?initialDate=2020-08-01&finalDate=2020-08-26",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
-					"port": "8081",
+					"port": "8080",
 					"path": [
 						"reservation",
 						"available"
@@ -67,7 +67,7 @@
 		{
 			"name": "DELETE Cancel reservation",
 			"request": {
-				"url": "http://localhost:8081/reservation/5f191f994b767d531669c094/cancel",
+				"url": "http://localhost:8080/reservation/5f19f3a86e226b1ac1b33101/cancel",
 				"method": "DELETE",
 				"header": [
 					{
@@ -87,7 +87,7 @@
 		{
 			"name": "PUT update reservation",
 			"request": {
-				"url": "http://localhost:8081/reservation/5f191f994b767d531669c094",
+				"url": "http://localhost:8080/reservation/5f19f3a86e226b1ac1b33101",
 				"method": "PUT",
 				"header": [
 					{
@@ -107,7 +107,7 @@
 		{
 			"name": "GET reservation by id",
 			"request": {
-				"url": "http://localhost:8081/reservation/5f191f994b767d531669c094",
+				"url": "http://localhost:8080/reservation/5f19f3a86e226b1ac1b33101",
 				"method": "GET",
 				"header": [
 					{

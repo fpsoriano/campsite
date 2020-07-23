@@ -4,6 +4,8 @@ swaggerBaseUrl: localhost:8080
 
 server:
   port: 8080
+  tomcat:
+    max-threads: 400
 
 config:
   maxDaysAllowedToReserve: 3
