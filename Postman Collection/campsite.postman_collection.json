@@ -1,0 +1,128 @@
+{
+	"variables": [],
+	"info": {
+		"name": "campsite",
+		"_postman_id": "0b1b5118-9959-e30d-6115-d59efcfda9af",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "POST reserve campsite",
+			"request": {
+				"url": "http://localhost:8081/reservation",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"arrivalDate\": \"2020-08-01\",\n  \"departureDate\": \"2020-08-03\",\n  \"user\": {\n    \"email\": \"fabricio@gmail.com\",\n    \"fullName\": \"Fabricio Soriano Palhavam\"\n  }\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "GET available dates to reserve",
+			"request": {
+				"url": {
+					"raw": "http://localhost:8081/reservation/available?initialDate=2020-08-01&finalDate=2020-08-26",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"reservation",
+						"available"
+					],
+					"query": [
+						{
+							"key": "initialDate",
+							"value": "2020-08-01",
+							"equals": true,
+							"description": ""
+						},
+						{
+							"key": "finalDate",
+							"value": "2020-08-26",
+							"equals": true,
+							"description": ""
+						}
+					],
+					"variable": []
+				},
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE Cancel reservation",
+			"request": {
+				"url": "http://localhost:8081/reservation/5f191f994b767d531669c094/cancel",
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"arrivalDate\": \"2020-08-03\",\n  \"departureDate\": \"2020-08-04\",\n  \"user\": {\n    \"email\": \"fabricio@gmail.com\",\n    \"fullName\": \"Fabricio Soriano Palhavam\"\n  }\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "PUT update reservation",
+			"request": {
+				"url": "http://localhost:8081/reservation/5f191f994b767d531669c094",
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"arrivalDate\": \"2020-08-02\",\n  \"departureDate\": \"2020-08-03\",\n  \"user\": {\n    \"email\": \"fabriciotest@gmail.com\",\n    \"fullName\": \"Fabricio Soriano Palhavam tes\"\n  }\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "GET reservation by id",
+			"request": {
+				"url": "http://localhost:8081/reservation/5f191f994b767d531669c094",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"arrivalDate\": \"2020-08-02\",\n  \"departureDate\": \"2020-08-03\",\n  \"user\": {\n    \"email\": \"fabricio@gmail.com\",\n    \"fullName\": \"Fabricio Soriano Palhavam\"\n  }\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}
