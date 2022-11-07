@@ -1,6 +1,4 @@
 
-# Swagger configurations
-swaggerBaseUrl: localhost:8080
 
 server:
   port: 8080
@@ -10,3 +8,7 @@ server:
 config:
   maxDaysAllowedToReserve: 3
   daysInAdvanceAllowedToReserve: 30
+
+springdoc:
+  swagger-ui:
+    operationsSorter: method

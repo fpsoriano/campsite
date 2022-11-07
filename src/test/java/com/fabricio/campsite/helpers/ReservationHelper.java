@@ -2,8 +2,8 @@ package com.fabricio.campsite.helpers;
 
 import com.fabricio.campsite.repository.model.reservation.ReservationModel;
 import com.fabricio.campsite.repository.model.reservation.UserModel;
-import com.fabricio.campsite.vo.reservation.ReservationVo;
-import com.fabricio.campsite.vo.reservation.UserVo;
+import com.fabricio.campsite.dto.reservation.ReservationDto;
+import com.fabricio.campsite.dto.reservation.UserDto;
 import java.time.LocalDate;
 
 public class ReservationHelper {
@@ -12,15 +12,15 @@ public class ReservationHelper {
   public static String NAME = "Fabricio Soriano";
   public static String EMAIL = "fabricio@gmail.com";
 
-  public static ReservationVo mockReservationVo() {
-    ReservationVo reservationVo = new ReservationVo();
-    reservationVo.setId(RESERVATION_ID);
-    reservationVo.setCancelled(false);
-    reservationVo.setArrivalDate(LocalDate.now().plusDays(1));
-    reservationVo.setDepartureDate(LocalDate.now().plusDays(3));
-    UserVo userVo = new UserVo(NAME, EMAIL);
-    reservationVo.setUser(userVo);
-    return reservationVo;
+  public static ReservationDto mockReservationVo() {
+    ReservationDto reservationDto = new ReservationDto();
+    reservationDto.setId(RESERVATION_ID);
+    reservationDto.setCancelled(false);
+    reservationDto.setArrivalDate(LocalDate.now().plusDays(1));
+    reservationDto.setDepartureDate(LocalDate.now().plusDays(3));
+    UserDto userDto = new UserDto(NAME, EMAIL);
+    reservationDto.setUser(userDto);
+    return reservationDto;
   }
 
   public static ReservationModel mockReservationModel() {

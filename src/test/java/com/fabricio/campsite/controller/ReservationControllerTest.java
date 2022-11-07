@@ -10,7 +10,7 @@ import static org.mockito.Mockito.when;
 
 import com.fabricio.campsite.repository.model.reservation.ReservationModel;
 import com.fabricio.campsite.service.ReservationService;
-import com.fabricio.campsite.vo.reservation.ReservationVo;
+import com.fabricio.campsite.dto.reservation.ReservationDto;
 import java.time.LocalDate;
 import java.util.List;
 import org.junit.Assert;
@@ -33,32 +33,32 @@ class ReservationControllerTest {
 
   @Test
   public void reserveCampsite() {
-    ReservationVo reservationVo = mockReservationVo();
+    ReservationDto reservationDto = mockReservationVo();
     when(reservationService.create(any(ReservationModel.class))).thenReturn(mockReservationModel());
-    ResponseEntity<ReservationVo> reservationVoResponseEntity = reservationController.reserve(reservationVo);
+    ResponseEntity<ReservationDto> reservationVoResponseEntity = reservationController.reserve(reservationDto);
     verify(reservationService, times(1)).create(any(ReservationModel.class));
     Assert.assertEquals(HttpStatus.CREATED, reservationVoResponseEntity.getStatusCode());
-    assertReservationFields(reservationVo, reservationVoResponseEntity.getBody());
+    assertReservationFields(reservationDto, reservationVoResponseEntity.getBody());
   }
 
   @Test
   public void updateReservation() {
-    ReservationVo reservationVo = mockReservationVo();
+    ReservationDto reservationDto = mockReservationVo();
     when(reservationService.update(any(String.class), any(ReservationModel.class))).thenReturn(mockReservationModel());
-    ResponseEntity<ReservationVo> reservationVoResponseEntity = reservationController.updateReservation(reservationVo, reservationVo.getId());
+    ResponseEntity<ReservationDto> reservationVoResponseEntity = reservationController.updateReservation(reservationDto, reservationDto.getId());
     verify(reservationService, times(1)).update(any(String.class), any(ReservationModel.class));
     Assert.assertEquals(HttpStatus.OK, reservationVoResponseEntity.getStatusCode());
-    assertReservationFields(reservationVo, reservationVoResponseEntity.getBody());
+    assertReservationFields(reservationDto, reservationVoResponseEntity.getBody());
   }
 
   @Test
   public void gerReservationById() {
-    ReservationVo reservationVo = mockReservationVo();
+    ReservationDto reservationDto = mockReservationVo();
     when(reservationService.findReservationById(any(String.class))).thenReturn(mockReservationModel());
-    ResponseEntity<ReservationVo> reservationVoResponseEntity = reservationController.getReservationById(reservationVo.getId());
-    verify(reservationService, times(1)).findReservationById(reservationVo.getId());
+    ResponseEntity<ReservationDto> reservationVoResponseEntity = reservationController.getReservationById(reservationDto.getId());
+    verify(reservationService, times(1)).findReservationById(reservationDto.getId());
     Assert.assertEquals(HttpStatus.OK, reservationVoResponseEntity.getStatusCode());
-    assertReservationFields(reservationVo, reservationVoResponseEntity.getBody());
+    assertReservationFields(reservationDto, reservationVoResponseEntity.getBody());
   }
 
   @Test
@@ -82,13 +82,13 @@ class ReservationControllerTest {
     Assert.assertTrue(response.containsAll(availableDatesForReservation));
   }
 
-  public void assertReservationFields(ReservationVo reservationVoExpected, ReservationVo reservationVoResponse){
-    Assert.assertEquals(reservationVoExpected.getId(), reservationVoResponse.getId());
-    Assert.assertEquals(reservationVoExpected.getArrivalDate(), reservationVoResponse.getArrivalDate());
-    Assert.assertEquals(reservationVoExpected.getDepartureDate(), reservationVoResponse.getDepartureDate());
-    Assert.assertEquals(reservationVoExpected.isCancelled(), reservationVoResponse.isCancelled());
-    Assert.assertEquals(reservationVoExpected.getUser().getFullName(), reservationVoResponse.getUser().getFullName());
-    Assert.assertEquals(reservationVoExpected.getUser().getEmail(), reservationVoResponse.getUser().getEmail());
+  public void assertReservationFields(ReservationDto reservationDtoExpected, ReservationDto reservationDtoResponse){
+    Assert.assertEquals(reservationDtoExpected.getId(), reservationDtoResponse.getId());
+    Assert.assertEquals(reservationDtoExpected.getArrivalDate(), reservationDtoResponse.getArrivalDate());
+    Assert.assertEquals(reservationDtoExpected.getDepartureDate(), reservationDtoResponse.getDepartureDate());
+    Assert.assertEquals(reservationDtoExpected.isCancelled(), reservationDtoResponse.isCancelled());
+    Assert.assertEquals(reservationDtoExpected.getUser().getFullName(), reservationDtoResponse.getUser().getFullName());
+    Assert.assertEquals(reservationDtoExpected.getUser().getEmail(), reservationDtoResponse.getUser().getEmail());
   }
 
 

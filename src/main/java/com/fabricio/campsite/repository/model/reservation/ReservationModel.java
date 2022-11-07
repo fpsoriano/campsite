@@ -1,6 +1,6 @@
 package com.fabricio.campsite.repository.model.reservation;
 
-import com.fabricio.campsite.vo.reservation.ReservationVo;
+import com.fabricio.campsite.dto.reservation.ReservationDto;
 import java.time.LocalDate;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -23,12 +23,12 @@ public class ReservationModel {
   private LocalDate departureDate;
   private boolean cancelled;
 
-  public ReservationVo toReservationVo() {
-    return ReservationVo.builder()
+  public ReservationDto toReservationDto() {
+    return ReservationDto.builder()
         .id(this.id)
         .arrivalDate(this.arrivalDate)
         .departureDate(this.departureDate)
-        .user(this.getUser().toUserVo())
+        .user(this.getUser().toUserDto())
         .cancelled(this.cancelled)
         .build();
   }

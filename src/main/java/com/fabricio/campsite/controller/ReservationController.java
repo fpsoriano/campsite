@@ -1,13 +1,16 @@
 package com.fabricio.campsite.controller;
 
 import com.fabricio.campsite.service.ReservationService;
-import com.fabricio.campsite.vo.reservation.ReservationVo;
+import com.fabricio.campsite.dto.reservation.ReservationDto;
 import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import java.time.LocalDate;
 import java.util.List;
 import javax.validation.Valid;
+
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -26,6 +29,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @Slf4j
 @Api(tags = {"Reservation"})
+@Tag(name = "Manage reservations",
+     description = "APIs to manage parking reservations.")
 public class ReservationController {
 
   private final ReservationService reservationService;
@@ -33,55 +38,45 @@ public class ReservationController {
   @Autowired
   public ReservationController(ReservationService reservationService) {this.reservationService = reservationService;}
 
-  @ApiOperation(
-      value = "Reserve campsite",
-      notes = "Reserve campsite in the application")
+  @Operation(summary = "Reserve campsite", description = "Reserve campsite in the application")
   @PostMapping("/reservation")
-  public ResponseEntity reserve(@ApiParam(value = "Reservation object", required = true) @Valid @RequestBody final ReservationVo reservationVo) {
-    log.info("Request : {}", reservationVo);
-    ReservationVo reservationVoResponse = reservationService.create(reservationVo.toReservationModel()).toReservationVo();
-    return new ResponseEntity<>(reservationVoResponse, HttpStatus.CREATED);
+  public ResponseEntity reserve(@ApiParam(value = "Reservation object", required = true) @Valid @RequestBody final ReservationDto reservationDto) {
+    log.info("Request : {}", reservationDto);
+    ReservationDto reservationDtoResponse = reservationService.create(reservationDto.toReservationModel()).toReservationDto();
+    return new ResponseEntity<>(reservationDtoResponse, HttpStatus.CREATED);
   }
 
-  @ApiOperation(
-      value = "Retrieves reservation by id",
-      notes = "Retrieves reservation by id to check all the information")
+  @Operation(summary = "Retrieves reservation by id", description = "Retrieves reservation by id to check all the information")
   @GetMapping("/reservation/{reservationId}")
   public ResponseEntity getReservationById(@ApiParam(value = "Reservation id", required = true) @PathVariable final String reservationId) {
-    ReservationVo reservationVoResponse = reservationService.findReservationById(reservationId).toReservationVo();
-    return new ResponseEntity<>(reservationVoResponse, HttpStatus.OK);
+    ReservationDto reservationDtoResponse = reservationService.findReservationById(reservationId).toReservationDto();
+    return new ResponseEntity<>(reservationDtoResponse, HttpStatus.OK);
   }
 
-  @ApiOperation(
-      value = "Retrieves reservation by id",
-      notes = "Retrieves reservation by id to check all the information")
+  @Operation(summary = "Delete reservation by id")
   @DeleteMapping("/reservation/{reservationId}/cancel")
   public ResponseEntity cancelReservation(@ApiParam(value = "Reservation id", required = true) @PathVariable final String reservationId) {
     reservationService.cancelReservation(reservationId);
     return new ResponseEntity<>(HttpStatus.NO_CONTENT);
   }
 
-  @ApiOperation(
-      value = "Update reservation by id",
-      notes = "Update the reservation data by id")
+  @Operation(summary = "Update reservation by id", description = "Update the reservation data by id")
   @PutMapping("/reservation/{reservationId}")
   public ResponseEntity updateReservation(
-      @ApiParam(value = "Reservation object", required = true) @Valid @RequestBody final ReservationVo reservationVo,
-      @ApiParam(value = "Reservation id", required = true) @PathVariable final String reservationId) {
-    ReservationVo reservationVoResponse = reservationService.update(reservationId, reservationVo.toReservationModel()).toReservationVo();
-    return new ResponseEntity<>(reservationVoResponse, HttpStatus.OK);
+      @Parameter(description = "Reservation object", required = true) @Valid @RequestBody final ReservationDto reservationDto,
+      @Parameter(description = "Reservation id", required = true) @PathVariable final String reservationId) {
+    ReservationDto reservationDtoResponse = reservationService.update(reservationId, reservationDto.toReservationModel()).toReservationDto();
+    return new ResponseEntity<>(reservationDtoResponse, HttpStatus.OK);
   }
 
-  @ApiOperation(
-      value = "All reservation",
-      notes = "Retrieves reservations")
+  @Operation(summary = "Retrieves available reservations")
   @GetMapping("/reservation/available")
   public ResponseEntity findReservationWithAvailableDates(
-      @ApiParam(value = "Initial Date of the range. If not set, the default range will be 1 month (considering the initialDate as the current one).")
+      @Parameter(description = "Initial Date of the range. If not set, the default range will be 1 month (considering the initialDate as the current one).")
         @RequestParam(required = false)
         @DateTimeFormat(iso = ISO.DATE)
         LocalDate initialDate,
-      @ApiParam(value = "Final Date of the range. If not set, the default range will be 1 month.")
+      @Parameter(description = "Final Date of the range. If not set, the default range will be 1 month.")
         @RequestParam(required = false)
         @DateTimeFormat(iso = ISO.DATE)
         LocalDate finalDate

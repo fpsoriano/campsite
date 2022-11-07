@@ -1,4 +1,4 @@
-package com.fabricio.campsite.vo.reservation;
+package com.fabricio.campsite.dto.reservation;
 
 import static com.fabricio.campsite.helper.ValidationConstants.ARRIVAL_DATE_IS_REQUIRED;
 import static com.fabricio.campsite.helper.ValidationConstants.DEPARTURE_DATE_IS_REQUIRED;
@@ -10,6 +10,8 @@ import io.swagger.annotations.ApiModelProperty;
 import java.time.LocalDate;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -20,27 +22,27 @@ import org.springframework.data.annotation.Id;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class ReservationVo {
+public class ReservationDto {
 
   @Id
   @JsonProperty(access = JsonProperty.Access.READ_ONLY)
-  @ApiModelProperty(notes = "Reservation ID generate by the application. It will be possible edit/cancel the reservation using this ID.")
+  @Schema(description = "Reservation ID generate by the application. It will be possible edit/cancel the reservation using this ID.")
   private String id;
 
   @Valid
-  private UserVo user;
+  private UserDto user;
 
-  @ApiModelProperty(example = "2020-07-16", notes = "Intended arrival date")
+  @Schema(example = "2020-07-16", description = "Intended arrival date")
   @NotNull(message = ARRIVAL_DATE_IS_REQUIRED)
   @JsonFormat(pattern = "yyyy-MM-dd")
   private LocalDate arrivalDate;
 
-  @ApiModelProperty(example = "2020-07-18", notes = "Departure date")
+  @Schema(example = "2020-07-18", description = "Departure date")
   @NotNull(message = DEPARTURE_DATE_IS_REQUIRED)
   @JsonFormat(pattern = "yyyy-MM-dd")
   private LocalDate departureDate;
 
-  @ApiModelProperty(notes = "Indicate if the reservation was cancelled or not. There is a specific endpoint to cancel the reservation.")
+  @Schema(description = "Indicate if the reservation was cancelled or not. There is a specific endpoint to cancel the reservation.")
   @JsonProperty(access = JsonProperty.Access.READ_ONLY)
   private boolean cancelled;
 

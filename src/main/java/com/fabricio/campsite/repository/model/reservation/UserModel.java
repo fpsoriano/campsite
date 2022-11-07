@@ -1,6 +1,6 @@
 package com.fabricio.campsite.repository.model.reservation;
 
-import com.fabricio.campsite.vo.reservation.UserVo;
+import com.fabricio.campsite.dto.reservation.UserDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -17,8 +17,8 @@ public class UserModel {
   private String fullName;
   private String email;
 
-  public UserVo toUserVo() {
-    return UserVo.builder()
+  public UserDto toUserDto() {
+    return UserDto.builder()
         .fullName(this.fullName)
         .email(this.email)
         .build();

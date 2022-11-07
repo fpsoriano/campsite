@@ -14,7 +14,8 @@ public enum IssueEnum {
   DATE_NOT_AVAILABLE(6, "There is a reservation between the arrivalDate and departureDate. Please choose other day(s)."),
   INITIAL_DATE_CANNOT_BE_AFTER_THAN_FINAL_DATE(7, "Initial date cannot be after than Final date"),
 
-  MALFORMED_REQUEST(1, "Malformed Request");
+  MALFORMED_REQUEST(1, "Malformed Request"),
+  INTERNAL_SERVER_ERROR(1, "Internal Server Error");
 
 
   private final int code;

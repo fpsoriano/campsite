@@ -1,5 +1,9 @@
-FROM openjdk:8-jdk-alpine
+FROM openjdk:11
 VOLUME /tmp
-ARG JAR_FILE=target/*.jar
-COPY ${JAR_FILE} app.jar
-ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/app.jar"]
+
+ENV APPLICATION_NAME=campsite
+
+COPY target/${APPLICATION_NAME}*.jar ${APPLICATION_NAME}-exec.jar
+ENV JAVA_OPTS=""
+ENTRYPOINT java \
+      -jar ${APPLICATION_NAME}-exec.jar
